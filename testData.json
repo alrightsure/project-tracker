@@ -1,0 +1,15 @@
+{
+    "projects": {
+        "testProject": {
+            "columns": {
+                "toDo": {
+                    "Create new JSON File": "Create a new Json file for the project to better test data",
+                    "Code a better App": ""
+                },
+                "finished": {
+                    "Get an idea for the app": "Already have a feasible idea for the app. Thanks!"
+                }
+            }
+        }
+    }
+}
