@@ -5,6 +5,8 @@
                 v-for="project in this.projects"
                 :key="project.id"
                 :label="project.name"
+                tag="router-link"
+                :to="`/columnView/${project.id}`"
             />
             <b-menu-item
                 icon="plus"

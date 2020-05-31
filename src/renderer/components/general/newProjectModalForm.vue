@@ -9,11 +9,26 @@
                     <b-input
                         type="text"
                         v-model="projectTitle"
-                        placeholder="New Project"
+                        placeholder="Project Name"
                         required
                     >
                     </b-input>
                 </b-field>
+
+                <p class="label">Project Columns</p>
+                <b-field v-for="column in columns" :key="column.id">
+                    <b-input
+                        v-model="column.name"
+                        type="text"
+                        placeholder="Column Name"
+                        @mouseover.native="showDeleteButton($event, column.id)"
+                        @mouseout.native="showByIndex = null"
+                    ></b-input>
+                    <p class="control" v-show="showByIndex === column.id">
+                        <button class="button is-danger">Delete</button>
+                    </p>
+                </b-field>
+                <p @click="addColumn">+ Add Column</p>
             </section>
             <footer class="modal-card-foot">
                 <button class="button is-primary" @click="createProject">
@@ -30,13 +45,26 @@ import Project from "../../models/project";
 export default {
     data() {
         return {
-            projectTitle: ""
+            projectTitle: "",
+            columns: [{ id: 1, name: "" }],
+            showByIndex: null
         };
     },
     methods: {
+        addColumn() {
+            this.columns.push({ id: this.columns.length + 1, name: "" });
+        },
+        deleteColumn() {},
+        showDeleteButton(event, columnId) {
+            console.log(columnId);
+            if (!columnId === 1) {
+                this.showByIndex = 2;
+            }
+        },
         createProject() {
-            console.log(this.projectTitle);
-            Project.insert({ data: { name: this.projectTitle } });
+            Project.insert({
+                data: { name: this.projectTitle, columns: this.columns }
+            });
             this.$parent.close();
         }
     }
