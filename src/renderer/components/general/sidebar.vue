@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import Project from "../../models/project";
 import newProjectModalForm from "./newProjectModalForm";
 
 export default {
@@ -37,7 +38,7 @@ export default {
     },
     computed: {
         projects() {
-            return this.$store.state.projects;
+            return Project.all();
         }
     }
 };

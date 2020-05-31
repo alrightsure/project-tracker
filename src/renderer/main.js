@@ -1,8 +1,6 @@
 import Vue from "vue";
 import axios from "axios";
 
-import storage from "electron-json-storage";
-
 import App from "./App";
 import router from "./router";
 import store from "./store";
@@ -14,9 +12,6 @@ Vue.http = Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 
 Vue.use(Buefy);
-
-storage.setDataPath(storage.getDefaultDataPath());
-console.log(storage.getDataPath());
 
 /* eslint-disable no-new */
 new Vue({

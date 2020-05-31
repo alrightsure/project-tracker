@@ -8,7 +8,7 @@
                 <b-field label="Title">
                     <b-input
                         type="text"
-                        :value="projectTitle"
+                        v-model="projectTitle"
                         placeholder="New Project"
                         required
                     >
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import Project from "../../models/project";
+
 export default {
     data() {
         return {
@@ -33,7 +35,8 @@ export default {
     },
     methods: {
         createProject() {
-            this.$store.commit("ADD_PROJECT", this.projectTitle);
+            console.log(this.projectTitle);
+            Project.insert({ data: { name: this.projectTitle } });
             this.$parent.close();
         }
     }
