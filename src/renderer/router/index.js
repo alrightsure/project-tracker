@@ -6,6 +6,10 @@ Vue.use(Router);
 export default new Router({
     routes: [
         {
+            path: "/columnView/:projectId",
+            component: require("@/components/columnView").default
+        },
+        {
             path: "/",
             name: "landing-page",
             component: require("@/components/noProjectSelected").default

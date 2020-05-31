@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div class="columns">
-            <sidebar class="column" />
+            <sidebar class="column is-one-fifth" />
             <router-view class="column"></router-view>
         </div>
     </div>
