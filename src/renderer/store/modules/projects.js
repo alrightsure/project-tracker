@@ -25,7 +25,8 @@ const mutations = {
         column.projectSteps.push({
             id: column.projectSteps.length + 1,
             name: "Title",
-            details: "Details"
+            details: "Details",
+            done: false
         });
     },
     RENAME_PROJECT(state, projectId, newName) {
@@ -59,22 +60,57 @@ const mutations = {
             projectStepId
         );
         projectStep.details = newDetails;
+    },
+    TOGGLE_PROJECT_STEP_DONE(state, projectId, columnId, projectStepId) {
+        const projectStep = getProjectStepById(
+            state,
+            projectId,
+            columnId,
+            projectStepId
+        );
+        projectStep.done = !projectStep.done;
+    },
+    DELETE_PROJECT(state, projectId) {
+        state.projects.splice(
+            state.projects.indexOf(getProjectById(state, projectId)),
+            1
+        );
+    },
+    DELETE_COLUMN(state, projectId, columnId) {
+        const project = getProjectById(state, projectId);
+
+        project.columns.splice(
+            project.columns.indexOf(
+                project.columns.find(column => column.id === columnId)
+            ),
+            1
+        );
+    },
+    DELETE_PROJECT_STEP(state, projectId, columnId, projectStepId) {
+        const column = getColumnById(state, projectId, columnId);
+
+        column.projectSteps.splice(
+            column.projectSteps.indexOf(
+                column.projectSteps.find(step => step.id === projectStepId)
+            ),
+            1
+        );
     }
 };
 
 const getProjectById = (state, projectId) =>
-    state.projects.find((project) => project.id === projectId);
+    state.projects.find(project => project.id === projectId);
 
 const getColumnById = (state, projectId, columnId) =>
     state.projects
-        .find((project) => project.id === projectId)
-        .columns.find((column) => column.id === columnId);
+        .find(project => project.id === projectId)
+        .columns.find(column => column.id === columnId);
 
 const getProjectStepById = (state, projectId, columnId, projectStepId) =>
     state.projects
-        .find((project) => project.id === projectId)
-        .columns.find((column) => column.id === columnId)
-        .projectSteps.find((projectStep) => projectStep.id === projectStepId);
+        .find(project => project.id === projectId)
+        .columns.find(column => column.id === columnId)
+        .projectSteps.find(projectStep => projectStep.id === projectStepId);
 
 export default {
     state,
