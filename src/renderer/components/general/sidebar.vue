@@ -18,6 +18,7 @@
             />
         </b-menu-list>
         <b-modal
+            v-if="modalActive"
             :active.sync="modalActive"
             has-modal-card
             trap-focus

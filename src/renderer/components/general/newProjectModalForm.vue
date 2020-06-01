@@ -45,7 +45,6 @@
 
 <script>
 import Project from "../../models/project";
-import Column from "../../models/column";
 
 export default {
     data() {
@@ -64,9 +63,6 @@ export default {
             });
 
             this.$parent.close();
-
-            this.projectTitle = "";
-            this.columns = [new Column()];
         }
     }
 };
