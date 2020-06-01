@@ -7,7 +7,7 @@ export default class ProjectStep extends Model {
 
     static fields() {
         return {
-            id: this.increment(),
+            id: this.uid(),
             column_id: this.attr(null),
             name: this.attr(""),
             details: this.attr("")

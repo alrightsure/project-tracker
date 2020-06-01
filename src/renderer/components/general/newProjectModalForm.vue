@@ -16,16 +16,20 @@
                 </b-field>
 
                 <p class="label">Project Columns</p>
-                <b-field v-for="column in columns" :key="column.id">
+                <b-field v-for="column in columns" :key="columns.indexOf(column)">
                     <b-input
                         v-model="column.name"
                         type="text"
                         placeholder="Column Name"
-                        @mouseover.native="showDeleteButton($event, column.id)"
-                        @mouseout.native="showByIndex = null"
                     ></b-input>
-                    <p class="control" v-show="showByIndex === column.id">
-                        <button class="button is-danger">Delete</button>
+                    <p class="control" v-show="columns.indexOf(column) > 0">
+                        <b-icon
+                            icon="close-circle"
+                            type="is-danger"
+                            @click.native="
+                                columns.splice(columns.indexOf(column), 1)
+                            "
+                        />
                     </p>
                 </b-field>
                 <p @click="addColumn">+ Add Column</p>
@@ -41,31 +45,28 @@
 
 <script>
 import Project from "../../models/project";
+import Column from "../../models/column";
 
 export default {
     data() {
         return {
             projectTitle: "",
-            columns: [{ id: 1, name: "" }],
-            showByIndex: null
+            columns: [{name: ""}]
         };
     },
     methods: {
         addColumn() {
-            this.columns.push({ id: this.columns.length + 1, name: "" });
-        },
-        deleteColumn() {},
-        showDeleteButton(event, columnId) {
-            console.log(columnId);
-            if (!columnId === 1) {
-                this.showByIndex = 2;
-            }
+            this.columns.push({name: ""});
         },
         createProject() {
             Project.insert({
                 data: { name: this.projectTitle, columns: this.columns }
             });
+
             this.$parent.close();
+
+            this.projectTitle = "";
+            this.columns = [new Column()];
         }
     }
 };

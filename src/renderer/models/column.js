@@ -8,7 +8,7 @@ export default class Column extends Model {
 
     static fields() {
         return {
-            id: this.increment(),
+            id: this.uid(),
             project_id: this.attr(null),
             name: this.attr(""),
             projectSteps: this.hasMany(ProjectSteps, "column_id")

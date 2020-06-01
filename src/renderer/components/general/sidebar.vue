@@ -7,11 +7,14 @@
                 :label="project.name"
                 tag="router-link"
                 :to="`/columnView/${project.id}`"
+                @click.native="selectedItem=project.id"
+                :active="selectedItem === project.id"
             />
             <b-menu-item
                 icon="plus"
                 label="New Project"
-                @click="modalActive = true"
+                :disabled="true"
+                @click.native="modalActive = true"
             />
         </b-menu-list>
         <b-modal
@@ -35,7 +38,8 @@ export default {
     components: { newProjectModalForm },
     data() {
         return {
-            modalActive: false
+            modalActive: false,
+            selectedItem: null
         };
     },
     computed: {

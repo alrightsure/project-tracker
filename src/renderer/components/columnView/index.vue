@@ -12,8 +12,10 @@ import Project from "../../models/project";
 export default {
     computed: {
         columns() {
-            const project = Project.find(this.$route.params.projectId);
-            return project.columns.all();
+            return Project.query()
+                .where("id", this.$route.params.projectId)
+                .with("columns")
+                .first().columns;
         }
     }
 };
